@@ -1,0 +1,109 @@
+#+title: Complementos
+
+#+propery: header-args:ipython :session complementos :results raw drawer
+
+Diámetros de los complementos de las graficas que tienen diámetro 2.
+
+#+begin_src ipython :session  :results raw drawer
+%matplotlib inline
+import networkx as nx
+import matplotlib.pyplot as plt
+from pycliques.lists import enlist_graphs
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[1]:
+:end:
+
+
+#+begin_src ipython :session  :results raw drawer
+lista6=enlist_graphs(6)
+lista6_d2=[g for g in lista6 if nx.diameter(g)==2 and nx.is_connected(nx.complement(g))]
+len(lista6_d2)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[2]:
+: 16
+:end:
+
+
+#+begin_src ipython :session  :results raw drawer
+set([nx.diameter(nx.complement(g)) for g in lista6_d2])
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[3]:
+: {2, 3, 4, 5}
+:end:
+
+#+begin_src ipython :session  :results raw drawer
+lista7=enlist_graphs(7)
+lista7_d2=[g for g in lista7 if nx.diameter(g)==2 and nx.is_connected(nx.complement(g))]
+len(lista7_d2)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[4]:
+: 183
+:end:
+
+#+begin_src ipython :session  :results raw drawer
+set([nx.diameter(nx.complement(g)) for g in lista7_d2])
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[5]:
+: {2, 3, 4, 5, 6}
+:end:
+
+#+begin_src ipython :session  :results raw drawer
+lista7_d2_cd2=[g for g in lista7_d2 if nx.diameter(nx.complement(g)) == 2]
+len(lista7_d2_cd2)
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[10]:
+: 18
+:end:
+
+#+begin_src ipython :session  :results raw drawer
+plt.figure(figsize=(10,10))
+
+
+for i in range(9):
+    index = 330+i+1
+    plt.subplot(index)
+    nx.draw(lista7_d2_cd2[i])
+
+plt.show()
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[11]:
+[[file:./obipy-resources/1901RAW.png]]
+:end:
+#+begin_src ipython :session  :results raw drawer
+plt.figure(figsize=(10,10))
+
+
+for i in range(9):
+    index = 330+i+1
+    plt.subplot(index)
+    nx.draw(lista7_d2_cd2[i+9])
+
+plt.show()
+#+end_src
+
+#+RESULTS:
+:results:
+# Out[12]:
+[[file:./obipy-resources/1901eKc.png]]
+:end:
